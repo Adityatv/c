@@ -1,12 +1,16 @@
 export default async function handler(req, res) {
   try {
-    const response = await fetch("https://dillzy-movie.cricketstream745.workers.dev/hollywood/series?offset=0");
-    const data = await response.json();
+    const response = await fetch(
+      "https://dillzy-movie.cricketstream745.workers.dev/hollywood/series?offset=0"
+    )
 
-    res.setHeader("Cache-Control", "s-maxage=86400, stale-while-revalidate");
-    res.status(200).json(data);
+    const data = await response.json()
 
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch series data" });
+    res.setHeader("Cache-Control", "s-maxage=86400")
+
+    res.status(200).json(data)
+
+  } catch (err) {
+    res.status(500).json({ error: "API fetch failed" })
   }
 }
